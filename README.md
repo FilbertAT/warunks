@@ -49,7 +49,7 @@ g.  Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat sehingga nan
 - Menjalankan perintah yang terdapat pada informasi Project Command pada halaman PWS.
 
 ## 2. Bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan Penjelasan kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`
-![Bagan](images\bagan.png)
+![Bagan](https://github.com/FilbertAT/warunks/blob/main/images/bagan.png)
 
 **Client (Pengguna)**
    - Pengguna mengakses aplikasi web melalui browser dengan mengirimkan **HTTP Request** ke URL utama (`/`).
