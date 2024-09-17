@@ -141,3 +141,106 @@ Kita membutuhkan `csrf_token` saat membuat form di Django untuk mencegah seranga
 
    Saya juga memasukkan template HTML dasar tersebut ke dalam pengaturan TEMPLATES di `/warunks/settings.py` agar Django dapat me-_recognize_ template tersebut. Kemudian, saya memodifikasi `main.html` yang berada di `/main/templates` untuk meng-extend `base.html`. Langkah ini bertujuan untuk mempersingkat kode HTML yang perlu saya tulis di setiap halaman web, mempercepat proses pengembangan dan memastikan konsistensi tampilan seluruh halaman.
 
+2) Lalu, saya membuat sebuah input form dengan nama `ProductEntryForm` untuk menambahkan objek model `Product` pada app saya, `warunks`.
+   ```python
+   class ProductEntryForm(ModelForm):
+      class Meta:
+         model = ProductEntry
+         fields = ["name", "price", "category", "description"]
+   ```
+
+   Di `views.py`, `ProductEntryForm` yang telah saya buat akan saya gunakan untuk merender form ke halaman `/create-product-entry`. Ini memastikan bahwa form tersebut dapat diakses dan digunakan untuk membuat data produk baru ke dalam _database_.
+   ```python
+   def create_product_entry(request):
+      form = ProductEntryForm(request.POST or None)
+
+      if form.is_valid() and request.method == "POST":
+         form.save()
+         return redirect('main:show_main')
+
+      context = {'form': form}
+      return render(request, "create_product_entry.html", context)
+   ```
+
+   Saya telah membuat sebuah file HTML baru yang bernama `create_product_entry.html` dalam direktori `/main/templates` untuk halaman `/create-product-entry`. Ini memfasilitasi pembuatan halaman web yang akan digunakan untuk menambahkan produk baru melalui form yang disediakan.
+   ```python
+   {% extends 'base.html' %} 
+   {% block content %}
+   <h1>Add New Product Entry</h1>
+
+   <form method="POST">
+   {% csrf_token %}
+   <table>
+      {{ form.as_table }}
+      <tr>
+         <td></td>
+         <td>
+         <input type="submit" value="Add Product Entry" />
+         </td>
+      </tr>
+   </table>
+   </form>
+
+   {% endblock %}
+   ```
+
+   Kemudian, saya memasukkan url `create-product-entry` ke dalam `urls.py` yang terletak di direktori `/main`, sehingga form tersebut dapat ditampilkan pada halaman `/create-product-entry`. Ini mengatur jalur akses untuk memastikan bahwa form dapat diakses melalui URL yang ditentukan.
+
+3) Saya juga memperbarui `main.html` yang terletak di `/main/templates` dengan menambahkan sebuah tombol yang mengarah ke halaman `/create-product-entry` agar form tersebut mudah diakses. Selain itu, saya menambahkan sebuah tabel yang menampilkan data dari model Product yang sudah tersimpan di _database_. Untuk memastikan data tersebut dapat ditampilkan di tabel, saya mengubah context di fungsi `show_main` yang ada di `views.py`.
+   ```python
+   context = {
+      'name': 'Filbert',
+      'class': 'PBP C',
+      'npm': '2306152336',
+      'product_entries': ProductEntry.objects.all()
+   }
+   ```
+
+   Produk-produk ini akan ditangkap oleh `main.html` dan diiterasi untuk ditampilkan dalam bentuk tabel, di mana saya menggunakan looping untuk menambahkan setiap baris data ke dalam tabel tersebut.
+   ```python
+   {% for product_entry in product_entries %} ... {% endfor %}
+   ```
+
+4) Akhirnya, saya menambahkan empat fungsi baru di `views.py` yang bertujuan untuk mengirimkan response dalam format XML dan JSON, baik untuk data keseluruhan maupun data spesifik berdasarkan ID. Fungsi-fungsi ini memungkinkan penggunaan endpoint seperti `xml/[id]` dan `json/[id]` selain yang paling sederhana `/xml` dan `/json` untuk mengakses data sesuai dengan format yang diinginkan.
+   ```python
+   def show_xml(request):
+      data = ProductEntry.objects.all()
+      return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+   def show_json(request):
+      data = ProductEntry.objects.all()
+      return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+   def show_xml_by_id(request, id):
+      data = ProductEntry.objects.filter(pk=id)
+      return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+   def show_json_by_id(request, id):
+      data = ProductEntry.objects.filter(pk=id)
+      return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+   ```
+
+   Selanjutnya, saya mengatur _routing_ untuk masing-masing fungsi tersebut di `urls.py` yang terletak di direktori `/main`, untuk memastikan bahwa setiap fungsi dapat diakses melalui URL yang sesuai.
+   ```python
+   urlpatterns = [
+      path('', show_main, name='show_main'),
+      path('create-product-entry', create_product_entry, name='create_product_entry'),
+      path('xml/', show_xml, name='show_xml'),
+      path('json/', show_json, name='show_json'),
+      path('xml/<str:id>/', show_xml_by_id, name='show_xml_by_id'),
+      path('json/<str:id>/', show_json_by_id, name='show_json_by_id'),
+   ]
+   ```
+
+   ## Screenshot Postman
+   ### `/xml`
+   ![xml](https://github.com/FilbertAT/warunks/blob/main/images/xml.png)
+
+   ### `/json`
+   ![json](https://github.com/FilbertAT/warunks/blob/main/images/json.png)
+
+   ### `xml/[id]`
+   ![xml/[id]](https://github.com/FilbertAT/warunks/blob/main/images/xml_id.png)
+
+   ### `json/[id]`
+   ![json/[id]](https://github.com/FilbertAT/warunks/blob/main/images/json_id.png)

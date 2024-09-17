@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from main.forms import ProductEntryForm
 from main.models import ProductEntry
+from django.http import HttpResponse
+from django.core import serializers
 
 # Create your views here.
 def show_main(request):
