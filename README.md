@@ -1,4 +1,4 @@
-
+# Tugas 2
 ## 1. Implementasi Checklist Tugas 2 Secara Step-By-Step.
 a. Membuat sebuah proyek Django baru. 
 - Membuat repositori di GitHub, membuat direktori baru secara lokal, dan menghubungkan keduanya.
@@ -101,3 +101,43 @@ Django juga dirancang untuk skalabilitas, yang memungkinkan aplikasi yang dibuat
 
 ## 5. Mengapa model pada Django disebut sebagai ORM?
 Model pada Django disebut sebagai ORM (Object-Relational Mapping_) karena memungkinkan interaksi dengan database menggunakan objek Python, tanpa perlu menulis SQL secara langsung. ORM menjembatani perbedaan antara basis data relasional dan pemrograman berorientasi objek, memudahkan pengembang untuk fokus pada logika aplikasi sambil mengurangi kompleksitas dan kesalahan.
+
+# Tugas 3
+## 1. Jelaskan mengapa kita memerlukan _data delivery_ dalam pengimplementasian sebuah platform?
+Beberapa hal yang menjadi alasan mengapa kita memerlukan _data delivery_ dalam pengimplementasian sebuah platform adalah:
+- _Data delivery_ memungkinkan platform untuk mengirimkan data dalam bentuk XML atau JSON yang kemudian akan ditampilkan atau juga diolah kembali pada aplikasi pengguna. 
+- Selain mampu mengirimkan, _data delivery_ yang baik juga memastikan hanya data yang dibutuhkan (di-_request_) oleh klien yang dikirimkan ke klien, sehingga mengurangi _overhead_, mempercepat _loading time_, dan melindungi data lainnya. Hal ini juga akan meningkatkan kepuasan pengguna dan efektivitas penggunaan platform.
+- _Data delivery_ memudahkan integrasi sistem dengan sistem lain, termasuk juga berkomunikasi dengan third-party _services_ dan APIs_ lainnya karena dapat memastikan bahwa data yang diperlukan dapat ditransfer antar sistem dengan lancar.
+- Data delivery yang dirancang dengan baik juga akan memungkinkan pengiriman data secara aman, yang penting terutama untuk platform yang mengelola data sensitif.
+
+## 2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+Pemilihan antara XML (eXtensible Markup Language) dan JSON (JavaScript Object Notation) seringkali bergantung pada kebutuhan spesifik dari sebuah aplikasi atau platform. Namun, secara umum, seiring berjalannya waktu, JSON telah menjadi lebih populer daripada XML. Setelah menanyakan hal ini kepada 2 developer yang saya kenal, mereka sudah tidak lagi menggunakan XML, melainkan hanya JSON, sehingga membuat saya semakin yakin bahwa JSON lebih baik dari XML. Untuk beberapa alasan pendukungnya, saya juga akan merincikan hasil penelusuran saya di internet akan mengapa JSON lebih baik dari XML:
+- JSON memiliki sintaks yang lebih sederhana dan ringkas dibandingkan XML. Bentuknya mudah dibaca dan ditulis manusia namun juga mudah untuk diparsing oleh mesin, hal ini membuat JSON menjadi format yang efisien untuk transfer data.
+- Banyak teknologi modern dan API web mendukung JSON secara native. Hal ini membuatnya menjadi pilihan yang lebih mudah untuk diintegrasikan dalam berbagai platform dan bahasa pemrograman. Salah satunya, JSON sudah secara alami terintegrasi dengan JavaScript, sehingga menjadikannya pilihan yang sangat baik untuk pengembangan web.
+
+## 3.  Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?
+Method `is_valid()` pada form Django adalah fungsi yang digunakan untuk melakukan validasi data yang dikirimkan pengguna melalui form. Fungsi ini memeriksa apakah data yang masuk sesuai dengan kriteria yang telah ditentukan dalam definisi form, seperti tipe data, lalu apakah _field_ tersebut wajib diisi atau tidak (required fields), dan batasan - batasan lain yang kita (_developer_) tetapkan dalam validasi. `is_valid()` sangat penting karena ia memastikan bahwa data yang masuk ke dalam sistem aman dan dapat diproses tanpa menimbulkan error.
+
+## 4. Mengapa kita membutuhkan `csrf_token` saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan `csrf_token` pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+Kita membutuhkan `csrf_token` saat membuat form di Django untuk mencegah serangan Cross-Site Request Forgery (CSRF), di mana penyerang bisa memanipulasi pengguna yang sah untuk melakukan aksi tidak diinginkan di aplikasi web saat pengguna tersebut masih terautentikasi. Jika `csrf_token` tidak ditambahkan pada form Django, aplikasi menjadi rentan terhadap serangan tersebut. Penyerang dapat membuat permintaan berbahaya, seperti mengubah kata sandi atau mengirim email palsu, yang tampak berasal dari pengguna yang sah, karena aplikasi kita tidak dapat memverifikasi bahwa permintaan tersebut benar-benar berasal dari pengguna tersebut.
+
+## 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
+1) Saya membuat direktori bernama `templates` di direktori utama proyek dan menambahkan sebuah berkas HTML baru yang saya namakan `base.html`. Berkas `base.html` ini saya isi sebagai template dasar yang berfungsi sebagai kerangka untuk halaman - halaman web lain dalam proyek `warunks` saya. Hal ini memungkinkan konsistensi dan efisiensi dalam pengembangan halaman web selanjutnya, karena semua halaman dapat mengadopsi struktur dan desain yang serupa dengan mengacu pada template dasar ini.
+   ```python
+   {% load static %}
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      {% block meta %} {% endblock meta %}
+   </head>
+
+   <body>
+      {% block content %} {% endblock content %}
+   </body>
+   </html>
+   ```
+
+   Saya juga memasukkan template HTML dasar tersebut ke dalam pengaturan TEMPLATES di `/warunks/settings.py` agar Django dapat me-_recognize_ template tersebut. Kemudian, saya memodifikasi `main.html` yang berada di `/main/templates` untuk meng-extend `base.html`. Langkah ini bertujuan untuk mempersingkat kode HTML yang perlu saya tulis di setiap halaman web, mempercepat proses pengembangan dan memastikan konsistensi tampilan seluruh halaman.
+
