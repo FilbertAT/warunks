@@ -278,3 +278,29 @@ _
 Tidak semua penggunaan _cookies_ juga aman, karena bisa saja _cookies_ yang tidak dienkripsi dan tidak memiliki pengaturan keamanan seperti `HttpOnly` dan `Secure` beresiko diekspos ke serangan seperti XSS (_Cross-Site Scripting_) dimana penyerang dapat mencuri _cookies_ dengan menanamkan skrip (JavaScript biasanya) berbahaya di halaman web. Kemudian jika cookies tidak dienkripsi atau dikirim melalui koneksi HTTP biasa, penyerang dapat mengintip dan mencuri informasi tersebut. Dan jika session ID dalam cookie dicuri, penyerang bisa menggunakan session ID tersebut untuk mengakses akun pengguna yang sedang login.
 
 ## Step-by-step Implementasi Checklist Tugas 4
+a. Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna untuk mengakses aplikasi sebelumnya dengan lancar.
+- Memodifikasi views.py dengan menambahkan impor `UserCreationForm` dan `messages` untuk menangani form registrasi dan pesan. Lalu, membuat fungsi `register` dan laman templatenya yaitu `register.html` sebagai form registrasi dan tidak lupa menambahkan alamat URL nya pada `urls.py`.
+- Memodifikasi `views.py` dengan menambahkan impor `authenticate`, `login`, dan `AuthenticationForm` untuk menangani proses autentikasi dan login. Lalu, membuat fungsi `login_user` dan laman templatenya yaitu `login.html` sebagai form login, serta menambahkan path URL untuk login pada `urls.py`.
+- Lagi-lagi memodifikasi `views.py` dengan menambahkan impor `logout` untuk menangani proses logout. Lalu, membuat fungsi `logout_user` dan menambahkan tombol logout pada `main.html`. Terakhir, menambahkan path URL untuk logout pada `urls.py`.
+
+b. Membuat **dua** akun pengguna dengan masing-masing **tiga** dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun **di lokal**.
+- Jalankan `python manage.py runserver` di terminal.
+- Akses http://localhost:8000/ melalui browser.
+- Klik "Register Now" dan buat dua akun pengguna secara terpisah.
+- Buat tiga _dummy_ data (_product_ dalam `warunks`) sesuai yang diminta pada kedua akun yang sudah dibuat.
+
+c. Menghubungkan model `Product` dengan `User`.
+- Tambahkan impor `User` di `models.py` dan hubungkan `ProductEntry` dengan pengguna menggunakan `ForeignKey` ke `User`.
+- Perbarui fungsi `create_product_entry` di `views.py` agar setiap product entry terkait dengan pengguna yang sedang login.
+- Ubah fungsi `show_main` di `views.py` untuk hanya menampilkan product entries milik pengguna yang sedang login.
+- Simpan perubahan dan jalankan `python manage.py makemigrations`. Pilih opsi 1 saat diminta untuk menetapkan nilai default user dan jalankan `python manage.py migrate` untuk menerapkan perubahan.
+- Perbarui `settings.py` dengan menambahkan impor `os` dan ubah variabel `DEBUG` untuk environment production.
+- Jalankan server menggunakan `python manage.py runserver`, buat akun baru, dan pastikan hanya product entries pengguna yang login yang ditampilkan.
+
+d. Menampilkan detail informasi pengguna yang sedang _logged in_ seperti _username_ dan menerapkan `cookies` seperti `last login` pada halaman utama aplikasi.
+- Tambahkan impor `HttpResponseRedirect`, `reverse`, dan `datetime` ke `views.py`.
+- Perbarui fungsi `login_user` untuk menambahkan cookie `last_login` saat pengguna berhasil login.
+- Tambahkan `last_login` ke variabel context di fungsi `show_main` untuk menampilkan waktu login terakhir.
+- Perbarui fungsi `logout_user` untuk menghapus cookie `last_login` saat logout.
+- Tambahkan kode di `main.html` untuk menampilkan detail informasi pengguna yang sedang _logged in_ seperti _username_.
+- Jalankan proyek, login, dan cek apakah data `last_login` muncul di halaman utama dan cookie di browser.
