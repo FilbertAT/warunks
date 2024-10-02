@@ -304,3 +304,136 @@ d. Menampilkan detail informasi pengguna yang sedang _logged in_ seperti _userna
 - Perbarui fungsi `logout_user` untuk menghapus cookie `last_login` saat logout.
 - Tambahkan kode di `main.html` untuk menampilkan detail informasi pengguna yang sedang _logged in_ seperti _username_.
 - Jalankan proyek, login, dan cek apakah data `last_login` muncul di halaman utama dan cookie di browser.
+
+# Tugas 5
+## Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+1. Inline Styles, contoh: `<p style="color: red;">This is a paragraph</p>`
+2. ID Selector, contoh: `#productID`
+3. Class, Pseudo-class, dan Attribute Selector, contoh: `.test`, `:hover`, `[href]`
+4. Element dan Pseudo-element Selector, contoh: element `div`, `p`, `h1` dan pseudo-element `::before`, `::after`
+
+p.s. Kecuali, terdapat deklarasi `!important`, CSS akan mengabaikan urutan prioritas selektor lainnya dan ia menjadi prioritas tertinggi. Lalu, jika ada dua selector memiliki tingkat prioritas yang sama, maka yang ditulis terakhir yang akan diambil.
+
+## Mengapa _responsive design_ menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan _responsive design_!
+_Responsive design_ menjadi konsep yang sangat penting dalam pengembangan aplikasi web karena memungkinkan sebuah aplikasi web untuk menyesuaikan tampilan dan fungsionalitasnya dengan berbagai ukuran layar dan perangkat, seperti desktop, tablet, dan smartphone. Ini penting karena pengguna mengakses aplikasi web melalui berbagai perangkat, dan pengalaman yang konsisten serta optimal di semua perangkat sangat penting untuk kenyamanan pengguna.
+
+Contoh aplikasi yang sudah menerapkan _responsive design_ adalah:
+- `Tokopedia.com`
+- `Youtube.com`
+- `Airbnb.com`
+
+Sedangkan yang belum menerapkan _responsive design_ adalah:
+- `lingscars.com`
+
+## Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+- **Margin**: Ruang di luar elemen, digunakan untuk menciptakan jarak antar elemen di luar batas elemen tersebut. Margin tidak mempengaruhi ukuran elemen secara langsung.
+- **Border**: Garis yang mengelilingi elemen, terletak di antara margin dan padding. Border mempengaruhi ukuran total elemen karena menambah dimensi pada elemen.
+- **Padding**: Ruang di dalam elemen, antara konten dan border. Padding menambah ukuran elemen karena membuat konten berada lebih jauh dari border.
+
+Cara implementasi ketiganya:
+```css
+div {
+  margin: 8px;
+  border: 3px solid blue;
+  padding: 7px;
+}
+```
+
+Sebenarnya, margin, border, dan padding juga dapat diimplementasikan atau diatur untuk setiap sisi, seperti:
+```css
+div {
+   margin-top: 10px;
+   margin-right: 15px;
+   margin-bottom: 20px;
+   margin-left: 25px;
+
+   border-top: 3px dashed red;
+   border-right: 1px solid blue;
+   border-bottom: 2px dotted green;
+   border-left: 4px double orange;
+
+   padding-top: 5px;
+   padding-right: 10px;
+   padding-bottom: 15px;
+   padding-left: 20px;
+}
+```
+
+## Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+**Flexbox** _(Flexible Box Layout_) adalah model layout satu dimensi yang dirancang untuk menyusun elemen di sepanjang satu arah, baik horizontal (baris) atau vertikal (kolom) **secara fleksibel**. Flexbox sangat berguna ketika Anda hanya perlu mengatur elemen dalam satu baris atau kolom, seperti bar navigasi, daftar item, atau susunan gambar. Dengan menggunakan Flexbox, elemen-elemen di dalam container dapat secara otomatis menyesuaikan ukuran berdasarkan ruang yang tersedia.
+
+Konsep Utama Flexbox:
+- _Container_ dan _Items_: Flexbox bekerja pada `flex container` dan elemen-elemen di dalamnya disebut `flex items`. Flex container adalah elemen induk yang mengatur layout elemen-elemen di dalamnya.
+- _Main Axis_ dan _Cross Axis_: Flexbox mengatur item sepanjang main axis (sumbu utama) dan cross axis (sumbu silang). Secara default, main axis adalah horizontal (baris), tetapi dapat diubah menjadi vertikal dengan `flex-direction: column`.
+
+Kegunaan Flexbox:
+- Sangat cocok untuk layout satu dimensi (baris atau kolom).
+- Pengaturan item secara fleksibel dan dinamis sesuai dengan ukuran container.
+- Ideal untuk _horizontal alignment_ seperti navigasi, menu, atau komponen UI yang diatur secara horizontal atau vertikal.
+
+**_Grid Layout_** adalah model layout dua dimensi yang memungkinkan pengaturan elemen dalam baris dan kolom secara bersamaan. Grid Layout memberikan kontrol penuh terhadap posisi elemen dalam tata letak yang lebih kompleks dibandingkan Flexbox, terutama jika layout memiliki banyak elemen yang tersebar dalam beberapa baris dan kolom. Dengan kata lain, dengan menggunakan Grid, kita bisa menentukan berapa banyak kolom dan baris yang ada dalam layout dan bagaimana elemen ditempatkan di dalam grid tersebut.
+
+Konsep Utama Grid Layout: 
+- _Grid Container_ dan _Grid Items_: Sama seperti Flexbox, Grid Layout bekerja dengan `grid container` yang berisi `grid items`. Grid container mendefinisikan grid, sementara grid items ditempatkan sesuai dengan area grid yang ditentukan.
+- Baris dan Kolom: Grid memungkinkan pengaturan elemen secara simultan dalam baris dan kolom, sehingga memungkinkan layout yang lebih kompleks daripada Flexbox.
+
+Kegunaan Grid Layout:
+- Cocok untuk layout dua dimensi yang lebih kompleks, seperti halaman web dengan header, footer, konten, dan sidebar.
+- Memberikan kontrol yang lebih baik atas posisi elemen-elemen dalam tata letak yang multi-baris dan multi-kolom.
+- Berguna untuk menciptakan tata letak yang lebih terstruktur dengan kontrol penuh atas ruang dan grid alignment.
+
+## Step-by-step Implementasi Checklist Tugas 5
+a. Implementasikan fungsi untuk menghapus dan mengedit produk.
+- Tambahkan method edit dan delete pada `views.py`, update `urls.py` dengan path yang sesuai, dan buat `edit_order.html` di folder `main/templates` untuk fungsi edit.
+
+b. Kustomisasi halaman login, register, dan tambah produk agar lebih menarik dengan menggunakan Tailwind CSS untuk mendekorasi halaman login, register, dan create_order.
+
+c. Jika belum ada produk yang tersimpan di aplikasi, halaman daftar produk akan menampilkan gambar dan pesan bahwa belum ada produk yang terdaftar.
+
+d. Jika sudah ada produk yang tersimpan, halaman daftar produk akan menampilkan detail setiap produk menggunakan kartu (desain tidak boleh sama dengan Tutorial).
+
+e. Untuk setiap kartu produk, buat dua tombol untuk mengedit dan menghapus produk di kartu tersebut.
+
+f. Membuat navbar.
+
+# Tugas 6
+##  Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+- JavaScript memungkinkan pengembangan fitur-fitur dinamis pada sisi klien (client-side), seperti memperbarui halaman tanpa harus melakukan refresh penuh. Ini meningkatkan pengalaman pengguna dengan membuat aplikasi terasa lebih cepat dan responsif. 
+
+   Contoh: Penggunaan AJAX untuk mengambil data dari server Django tanpa perlu me-reload halaman, memungkinkan interaksi yang lebih cepat.
+
+- Javascript dapat memvalidasi form  di sisi klien sebelum dikirim ke server. Ini membantu memberikan umpan balik instan kepada pengguna tanpa menunggu respons dari server, yang membuat proses pengisian form lebih cepat dan efisien.
+   
+   Contoh: Validasi format email, nomor telepon, atau panjang karakter langsung di browser pengguna.
+
+- JavaScript dapat digunakan untuk membuat elemen-elemen UI yang lebih menarik, seperti transisi, animasi, dan modifikasi gaya halaman secara dinamis. Hal ini memberikan kesan interaktif dan membuat aplikasi lebih menarik.
+
+   Contoh: Dropdown menu, modal popup, atau scroll-to-top button yang responsif terhadap tindakan pengguna.
+
+- JavaScript mendukung asynchronous programming, seperti penggunaan Promises dan `async`/`await`, yang memungkinkan operasi-operasi berat, seperti pengambilan data dari API eksternal, dapat dilakukan di latar belakang tanpa mengganggu fungsionalitas utama halaman.
+
+   Contoh: Memanggil API dari server Django untuk memperbarui data secara dinamis, tanpa menghentikan interaksi pengguna.
+
+- JavaScript memungkinkan integrasi dengan framework front-end modern seperti React, Vue, atau Angular, yang membantu dalam membangun aplikasi berbasis komponen dan SPA yang kompleks. Django dapat mengelola back-end dan menyediakan data melalui REST API atau GraphQL, sementara JavaScript mengelola sisi front-end.
+
+   Contoh: Django digunakan sebagai back-end API, sementara React mengelola tampilan di sisi klien.
+
+
+## Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+Fungsi penggunaan `await` dalam kombinasi dengan `fetch()` adalah untuk menunggu hingga proses pengambilan data dari server selesai sebelum melanjutkan eksekusi kode berikutnya. `fetch()` mengembalikan sebuah **_Promise_**, dan dengan menggunakan `await`, program akan menunggu hingga **_Promise_** tersebut selesai (resolved) atau ditolak (rejected), lalu mengembalikan hasilnya. Ini memastikan bahwa data yang diminta telah diterima sebelum langkah berikutnya dijalankan.
+
+Jika `await` tidak digunakan dengan `fetch()`, kode akan berjalan secara asinkron, yang berarti program akan melanjutkan eksekusi tanpa menunggu hasil dari `fetch()`. Akibatnya, ketika Anda mencoba mengakses data yang seharusnya diambil oleh `fetch()`, data tersebut mungkin belum tersedia, karena **_Promise_** dari `fetch()` belum selesai. Hal ini bisa menyebabkan error, atau data yang tidak lengkap diproses lebih awal. Seorang pepatah mengatakan, "Tanpa `await`, `response` dan `data` adalah **_Promise_** yang belum selesai, sehingga tidak dapat langsung digunakan."
+
+## Mengapa kita perlu menggunakan decorator `csrf_exempt` pada view yang akan digunakan untuk AJAX `POST`?
+`csrf_exempt` digunakan pada view Django untuk menonaktifkan perlindungan **CSRF** (Cross-Site Request Forgery) pada request yang masuk, terutama pada AJAX POST. Django secara default melindungi aplikasi dari serangan **CSRF** dengan memverifikasi token **CSRF** pada setiap request POST yang datang dari klien. Ini adalah langkah penting dalam keamanan aplikasi web untuk mencegah pihak luar mengirimkan permintaan yang tidak sah.
+
+Namun, dalam beberapa kasus, seperti ketika menggunakan AJAX POST request, terutama dari aplikasi pihak ketiga atau tanpa pengelolaan token **CSRF** yang memadai, proses ini bisa mengakibatkan error 403 Forbidden karena Django tidak menerima atau tidak dapat memverifikasi token **CSRF** yang sah.
+
+Dengan menggunakan `@csrf_exempt` pada view, Django tidak akan memeriksa token **CSRF** untuk request tersebut, sehingga permintaan AJAX POST dapat berhasil diproses tanpa harus memvalidasi token. Ini berguna jika Anda sudah memiliki mekanisme keamanan lain atau jika request berasal dari sumber yang aman, seperti aplikasi internal. Meskipun begitu, perlu diingat bahwa penggunaan `csrf_exempt` harus dilakukan dengan hati-hati, karena menonaktifkan perlindungan **CSRF** meningkatkan risiko keamanan. Sebaiknya tetap gunakan token CSRF jika memungkinkan, dengan mengirimkannya bersama request AJAX POST.
+
+## Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (_backend_) juga. Mengapa hal tersebut tidak dilakukan di _frontend_ saja?
+Pembersihan data input pengguna pada tutorial PBP minggu ini dilakukan di _backend_ tentunya untuk menjaga keamanan aplikasi. _Frontend_ yang berjalan di sisi pengguna rentan terhadap manipulasi karena pengguna dapat menonaktifkan atau memodifikasi validasi atau bahkan keseluruhan JavaScript yang dilakukan di browser. Jika hanya mengandalkan _frontend_, aplikasi menjadi rentan terhadap serangan seperti Cross-Site Scripting (XSS). 
+
+Selain keamanan, _backend_ memberikan kendali penuh atas proses validasi dan pembersihan data. Pembersihan ini tidak dapat diabaikan oleh pengguna, karena setiap input yang diterima server akan melalui tahap ini sebelum diproses atau disimpan. _Backend_ juga mendukung validasi yang lebih kompleks dan konsisten, tanpa bergantung pada variasi perilaku browser atau perangkat pengguna, yang memastikan data tetap seragam dan sesuai standar aplikasi.
+
+Pembersihan di _frontend_ tetap berguna untuk meningkatkan pengalaman pengguna dengan memberikan umpan balik cepat. Namun, hal ini tidak bisa diandalkan sepenuhnya karena pengguna dapat memanipulasi atau melewatinya. Oleh karena itu, pembersihan data input pengguna dilakukan di _backend_ juga.

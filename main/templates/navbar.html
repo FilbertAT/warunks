@@ -1,0 +1,31 @@
+<header class="bg-white w-full z-10">
+    <nav class="flex justify-between items-center w-[92%] mx-auto py-4">
+        <div>
+            <h1 class="text-2xl font-bold cursor-pointer"><a href="{% url 'main:show_main' %}">Warunks</a></h1>
+        </div>
+        <div class="nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[28vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
+            <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
+                <li><a class="hover:text-[#714705]" href="{% url 'main:show_main' %}">Home</a></li>
+                <li><a class="hover:text-[#714705]" href="{% url 'main:show_main' %}">Products</a></li>
+                <li><a class="hover:text-[#714705]" href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="flex items-center gap-6">
+            {% if user.is_authenticated %}
+            <button class="bg-[#714705] text-white px-5 py-2 rounded-full hover:bg-[#52370d]"><a href="{% url 'main:logout' %}">Logout</a></button>
+            {% else %}
+            <button class="bg-[#714705] text-white px-5 py-2 rounded-full hover:bg-[#52370d]"><a href="{% url 'main:register' %}">Register</a></button>
+            <button class="bg-[#714705] text-white px-5 py-2 rounded-full hover:bg-[#52370d]"><a href="{% url 'main:login' %}">Login</a></button>
+            {% endif %}
+            <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl cursor-pointer md:hidden"></ion-icon>
+        </div>
+    </nav>
+</header>
+
+<script>
+    const navLinks = document.querySelector('.nav-links');
+    function onToggleMenu(e) {
+        e.name = e.name === 'menu' ? 'close' : 'menu';
+        navLinks.classList.toggle('top-[9%]');
+    }
+</script>
