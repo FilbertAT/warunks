@@ -2,7 +2,7 @@
     width: 100%;
     padding: 0.75rem;
     border: 2px solid #d1d5db;
-    border-radius: 0.45rem;
+    border-radius: 0.48rem;
     background-color: #ffffff;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
