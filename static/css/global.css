@@ -13,7 +13,6 @@
     box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); /* Teal glow */
 }
 
-/* Button Styles */
 button {
     background-color: #3b82f6; /* Blue button */
     color: #ffffff;
@@ -34,7 +33,6 @@ button:active {
     transform: scale(0.98);
 }
 
-/* Custom Animation: Pulse */
 @keyframes pulse {
     0%, 100% {
         transform: scale(1);
