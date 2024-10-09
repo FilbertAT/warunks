@@ -17,7 +17,7 @@ from django.utils.html import strip_tags
 def show_main(request):
     context = {
         'name': request.user.username,
-        # 'last_login': request.COOKIES['last_login'][:16]
+        'last_login': request.COOKIES['last_login'][:16]
     }
 
     return render(request, "main.html", context)
